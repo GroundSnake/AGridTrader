@@ -6,8 +6,8 @@ import pandas as pd
 
 """
 Ashare 股票行情数据双核心版( https://github.com/mpquant/Ashare)
-{"1m":320_row, "5m"：1023_row, "15m"：1023_row, "30m"：1023_row, "60m"：1023_row},
-{"1d":2442_row , "1w":519_row, "1M":320_row]
+{"1m":320_row, "5m"：1023_row, "15m"：1023_row, "30m"：1023_row, "60m"：1023_row}
+{"1d":2442_row , "1w":519_row, "1M":320_row}
 1分钟，5分钟，15分钟，30分钟，60分钟，1d日线  1w周线  1M月线
 """
 __version__ = "0.0.1"
