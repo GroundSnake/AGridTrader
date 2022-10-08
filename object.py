@@ -49,12 +49,15 @@ class GridTrader:
     def __repr__(self):
         return f"<{self.name} for {self.symbol}>"
 
-    def record(self, side: int, price: float) -> bool:
+    def record(self, side: int, price: float, dt_now=False) -> bool:
         """get_signal()触发信号后，用成交的返回数据调用本方法
+        :param dt_now:
         :param side:未知[OrderSide_Unknown]，买入[OrderSide_Buy]，卖出[OrderSide_Sell]三选一。
         :param price:
         :return:记录成功返回Ture，记录失败返回False。
         """
+        if dt_now:
+            dt_now = datetime.datetime.now()
         if self.signal_switch:  # [signal_switch]为Ture，本办法--不执行
             logging.error(f"[{self.symbol}] - Record：- No transaction signal")
             return False
@@ -76,7 +79,7 @@ class GridTrader:
             if side == OrderSide_Buy:
                 self.latest_transaction_price = price
                 self.tick_position_row += 1  # 指向将要新增记录位置，[tick_position_row]+1
-                buy_datetime = datetime.datetime.now()
+                buy_datetime = dt_now
                 self.tick_position.loc[self.tick_position_row] = [
                     self.symbol,
                     buy_datetime,
@@ -90,7 +93,7 @@ class GridTrader:
                 )
             elif side == OrderSide_Sell:
                 if self.tick_position_row >= 0:
-                    sell_datetime = datetime.datetime.now()
+                    sell_datetime = dt_now
                     self.latest_transaction_price = price
                     hold = (
                         sell_datetime
